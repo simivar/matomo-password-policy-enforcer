@@ -1,0 +1,29 @@
+{
+  "name": "PasswordPolicyEnforcer",
+  "version": "1.0.0",
+  "description": "Adds a possibility to enforce Password Policy.",
+  "theme": false,
+  "keywords": [
+    "password policy",
+    "password",
+    "security"
+  ],
+  "homepage": "https://github.com/simivar/matomo-password-policy-enforcer",
+  "license": "MIT",
+  "require": {
+    "piwik": ">=3.6.0-b5,<4.0.0-b1",
+    "php": ">=5.5.9"
+  },
+  "support": {
+    "issues": "https://github.com/simivar/matomo-password-policy-enforcer/issues",
+    "source": "https://github.com/simivar/matomo-password-policy-enforcer",
+    "wiki": "https://github.com/simivar/matomo-password-policy-enforcer/wiki"
+  },
+  "authors": [
+    {
+      "name": "Simivar",
+      "email": "simivar@gmail.com",
+      "homepage": "https://github.com/simivar"
+    }
+  ]
+}

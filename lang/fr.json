@@ -1,0 +1,19 @@
+{
+    "PasswordPolicyEnforcer": {
+      "ExceptionInvalidPasswordUppercaseLetterRequired": "Le mot de passe doit contenir au moins une majuscule. (A-Z)",
+      "ExceptionInvalidPasswordLowercaseLetterRequired": "Le mot de passe doit contenir au moins une minuscule. (a-z)",
+      "ExceptionInvalidPasswordNumberRequired": "Le mot de passe doit contenir au moins un chiffre. (0-9)",
+      "ExceptionInvalidPasswordSpecialCharacterRequired": "Le mot de passe doit contenir au moins un caratère spécial. (!@#$%^&*()_+-=[]{}|')",
+      "PasswordPolicyConfiguration": "Politique de mot de passe",
+      "PasswordPolicyMinLengthSetting": "Longueur minimale du mot de passe",
+      "PasswordPolicyMinLengthSettingDescription": "Tous les mots de passe DOIVENT être d'une longueur minimale spécifiée ici. Pour des raisons de sécurité, la valeur ne peut pas être inférieure à %1$s.",
+      "PasswordPolicyOneUppercaseLetterSetting": "Doit contenir au moins une majuscule",
+      "PasswordPolicyOneUppercaseLetterSettingDescription": "Doit contenir au moins une majuscule. (A-Z)",
+      "PasswordPolicyOneLowercaseLetterSetting": "Doit contenir au moins une minuscule",
+      "PasswordPolicyOneLowercaseLetterSettingDescription": "Doit contenir au moins une minuscule. (a-z)",
+      "PasswordPolicyOneNumberSetting": "Doit contenir au moins un chiffre",
+      "PasswordPolicyOneNumberSettingDescription": "Doit contenir au moins un chiffre. (0-9)",
+      "PasswordPolicyOneSpecialCharacterSetting": "Doit contenir au moins un caratère spécial",
+      "PasswordPolicyOneSpecialCharacterSettingDescription": "Doit contenir au moins un caratère spécial. (!@#$%^&*()_+-=[]{}|')"
+    }
+}

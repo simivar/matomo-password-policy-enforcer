@@ -2,7 +2,9 @@
 
 namespace Piwik\Plugins\PasswordPolicyEnforcer\tests\Unit\Validators;
 
+use PHPUnit\Framework\TestCase;
 use Piwik\Plugins\PasswordPolicyEnforcer\Validators\SpecialCharacterValidator;
+use Piwik\Plugins\PasswordPolicyEnforcer\Validators\ValidationException;
 
 /**
  * @group PasswordPolicy
@@ -11,25 +13,24 @@ use Piwik\Plugins\PasswordPolicyEnforcer\Validators\SpecialCharacterValidator;
  * @group Password
  * @group Plugins
  */
-class SpecialCharacterValidatorTest extends \PHPUnit_Framework_TestCase
+class SpecialCharacterValidatorTest extends TestCase
 {
     private $specialCharacterValidator;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->specialCharacterValidator = new SpecialCharacterValidator();
     }
 
-    /**
-     * @expectedException \Piwik\Plugins\PasswordPolicyEnforcer\Validators\ValidationException
-     * @expectedExceptionMessage PasswordPolicyEnforcer_ExceptionInvalidPasswordSpecialCharacterRequired
-     */
-    public function test_validate_throwExceptionWhenZeroUppercaseLetters()
+    public function test_validate_throwExceptionWhenZeroUppercaseLetters(): void
     {
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage('PasswordPolicyEnforcer_ExceptionInvalidPasswordSpecialCharacterRequired');
+
         $this->specialCharacterValidator->validate('a');
     }
 
-    public function test_validate_returnsTrueWhenAtLeastOneUppercaseLetter()
+    public function test_validate_returnsTrueWhenAtLeastOneUppercaseLetter(): void
     {
         $this->assertTrue($this->specialCharacterValidator->validate('@'));
     }

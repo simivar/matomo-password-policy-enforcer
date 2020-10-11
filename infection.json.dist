@@ -8,6 +8,7 @@
       "..\/tests"
     ]
   },
+  "timeout": 10,
   "logs": {
     "text": "infection.log"
   },

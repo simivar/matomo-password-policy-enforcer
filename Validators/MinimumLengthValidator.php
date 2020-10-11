@@ -6,6 +6,7 @@ namespace Piwik\Plugins\PasswordPolicyEnforcer\Validators;
 
 class MinimumLengthValidator implements ValidatorInterface
 {
+    /** @var int */
     private $minLength;
 
     public function __construct(int $minLength = 6)

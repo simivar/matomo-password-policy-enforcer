@@ -11,14 +11,17 @@ final class Translator implements TranslatorInterface
 {
     /**
      * @psalm-suppress UndefinedDocblockClass
+     * @psalm-suppress PropertyNotSetInConstructor
      * @phpstan-ignore-next-line
      *
      * @var MatomoTranslator
      */
     private $translator;
 
-    /* @psalm-suppress UndefinedClass **/
-    /* @phpstan-ignore-next-line */
+    /**
+     * @psalm-suppress UndefinedClass
+     * @phpstan-ignore-next-line
+     */
     public function __construct(MatomoTranslator $translator)
     {
         $this->translator = $translator;
@@ -29,8 +32,10 @@ final class Translator implements TranslatorInterface
      */
     public function translate(string $key, array $params): string
     {
-        /* @psalm-suppress UndefinedDocblockClass */
-        /* @phpstan-ignore-next-line */
+        /**
+         * @psalm-suppress UndefinedDocblockClass
+         * @phpstan-ignore-next-line
+         */
         return $this->translator->translate($key, $params);
     }
 }

@@ -23,7 +23,7 @@ class PasswordValidatorTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @expectedException \Piwik\Validators\Exception
+     * @expectedException \Piwik\Plugins\PasswordPolicyEnforcer\Validators\ValidationException
      * @expectedExceptionMessage UsersManager_ExceptionInvalidPassword
      */
     public function test_validate_notLongEnough()
@@ -32,7 +32,7 @@ class PasswordValidatorTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @expectedException \Piwik\Validators\Exception
+     * @expectedException \Piwik\Plugins\PasswordPolicyEnforcer\Validators\ValidationException
      * @expectedExceptionMessage PasswordPolicyEnforcer_ExceptionInvalidPasswordUppercaseLetterRequired
      */
     public function test_validate_notOneUppercaseLetter()
@@ -41,7 +41,7 @@ class PasswordValidatorTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @expectedException \Piwik\Validators\Exception
+     * @expectedException \Piwik\Plugins\PasswordPolicyEnforcer\Validators\ValidationException
      * @expectedExceptionMessage PasswordPolicyEnforcer_ExceptionInvalidPasswordLowercaseLetterRequired
      */
     public function test_validate_notOneLowercaseLetter()
@@ -50,7 +50,7 @@ class PasswordValidatorTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @expectedException \Piwik\Validators\Exception
+     * @expectedException \Piwik\Plugins\PasswordPolicyEnforcer\Validators\ValidationException
      * @expectedExceptionMessage PasswordPolicyEnforcer_ExceptionInvalidPasswordNumberRequired
      */
     public function test_validate_notOneNumberLetter()
@@ -59,7 +59,7 @@ class PasswordValidatorTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @expectedException \Piwik\Validators\Exception
+     * @expectedException \Piwik\Plugins\PasswordPolicyEnforcer\Validators\ValidationException
      * @expectedExceptionMessage PasswordPolicyEnforcer_ExceptionInvalidPasswordSpecialCharacterRequired
      */
     public function test_validate_notOneSpecialCharacter()

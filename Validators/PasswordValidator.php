@@ -2,31 +2,24 @@
 
 namespace Piwik\Plugins\PasswordPolicyEnforcer\Validators;
 
-use Piwik\Common;
-use Piwik\Piwik;
-use Piwik\Plugins\UsersManager\UsersManager;
-use Piwik\Validators\BaseValidator;
-use Piwik\Validators\Exception;
-
-class PasswordValidator extends BaseValidator
+class PasswordValidator implements ValidatorInterface
 {
-    
     /** @var int */
-    private $minLength = UsersManager::PASSWORD_MIN_LENGTH;
+    private $minLength;
     
     /** @var bool */
-    private $isOneUppercaseRequired = false;
+    private $isOneUppercaseRequired;
     
     /** @var bool */
-    private $isOneLowercaseRequired = false;
+    private $isOneLowercaseRequired;
     
     /** @var bool */
-    private $isOneNumberRequired = false;
+    private $isOneNumberRequired;
     
     /** @var bool */
-    private $isOneSpecialCharacterRequired = false;
+    private $isOneSpecialCharacterRequired;
     
-    public function __construct($minLength = UsersManager::PASSWORD_MIN_LENGTH, $isOneUppercaseRequired = false, $isOneLowercaseRequired = false, $isOneNumberRequired = false, $isOneSpecialCharacterRequired = false)
+    public function __construct($minLength = 6, $isOneUppercaseRequired = false, $isOneLowercaseRequired = false, $isOneNumberRequired = false, $isOneSpecialCharacterRequired = false)
     {
         $this->minLength = (int) $minLength;
         $this->isOneUppercaseRequired = (bool) $isOneUppercaseRequired;
@@ -34,36 +27,25 @@ class PasswordValidator extends BaseValidator
         $this->isOneNumberRequired = (bool) $isOneNumberRequired;
         $this->isOneSpecialCharacterRequired = (bool) $isOneSpecialCharacterRequired;
     }
-    
-    /**
-     * The method to validate a value. If the value has not an expected format, an instance of
-     * {@link Piwik\Validators\Exception} should be thrown.
-     *
-     * @param $value
-     *
-     * @return bool
-     * @throws \Exception
-     */
+
     public function validate($value)
     {
-        if (Common::mb_strlen($value) < $this->minLength) {
-            throw new Exception(Piwik::translate('UsersManager_ExceptionInvalidPassword', [$this->minLength]));
+        (new MinimumLengthValidator($this->minLength))->validate($value);
+
+        if ($this->isOneUppercaseRequired) {
+            (new UppercaseLetterValidator())->validate($value);
         }
-        
-        if ($this->isOneUppercaseRequired && !preg_match('/[A-Z]/', $value)) {
-            throw new Exception(Piwik::translate('PasswordPolicyEnforcer_ExceptionInvalidPasswordUppercaseLetterRequired'));
+
+        if ($this->isOneLowercaseRequired) {
+            (new LowercaseLetterValidator())->validate($value);
         }
-        
-        if ($this->isOneLowercaseRequired && !preg_match('/[a-z]/', $value)) {
-            throw new Exception(Piwik::translate('PasswordPolicyEnforcer_ExceptionInvalidPasswordLowercaseLetterRequired'));
+
+        if ($this->isOneNumberRequired) {
+            (new NumberValidator())->validate($value);
         }
-        
-        if ($this->isOneNumberRequired && !preg_match('/[0-9]/', $value)) {
-            throw new Exception(Piwik::translate('PasswordPolicyEnforcer_ExceptionInvalidPasswordNumberRequired'));
-        }
-        
-        if ($this->isOneSpecialCharacterRequired && !preg_match('/[^a-zA-Z0-9]/', $value)) {
-            throw new Exception(Piwik::translate('PasswordPolicyEnforcer_ExceptionInvalidPasswordSpecialCharacterRequired'));
+
+        if ($this->isOneSpecialCharacterRequired) {
+            (new SpecialCharacterValidator())->validate($value);
         }
         
         return true;

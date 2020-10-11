@@ -6,13 +6,13 @@ class ValidationException extends \Exception
 {
     private $translationParams;
 
-    public function __construct($message = "", $translationParams = array())
+    public function __construct(string $message = "", array $translationParams = array())
     {
         $this->translationParams = $translationParams;
         parent::__construct($message);
     }
 
-    public function getTranslationParams()
+    public function getTranslationParams(): array
     {
         return $this->translationParams;
     }

@@ -2,6 +2,8 @@
 
 namespace Piwik\Plugins\PasswordPolicyEnforcer\Validators;
 
+use Piwik\Plugins\PasswordPolicyEnforcer\SystemSettings;
+
 class ValidatorFactory
 {
     private $passwordValidator;
@@ -11,10 +13,7 @@ class ValidatorFactory
         $this->passwordValidator = $passwordValidator;
     }
 
-    /**
-     * @return PasswordValidator
-     */
-    public function create($settings)
+    public function create(SystemSettings $settings): PasswordValidator
     {
         $this->passwordValidator->addValidator(new MinimumLengthValidator($settings->minLength->getValue()));
 

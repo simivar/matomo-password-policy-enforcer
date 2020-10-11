@@ -5,7 +5,7 @@ namespace Piwik\Plugins\PasswordPolicyEnforcer\Validators;
 
 class LowercaseLetterValidator implements ValidatorInterface
 {
-    public function validate($value)
+    public function validate(string $value): bool
     {
         if (!preg_match('/[a-z]/', $value)) {
             throw new ValidationException('PasswordPolicyEnforcer_ExceptionInvalidPasswordLowercaseLetterRequired');

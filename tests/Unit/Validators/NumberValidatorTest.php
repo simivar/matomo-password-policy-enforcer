@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Piwik\Plugins\PasswordPolicyEnforcer\tests\Unit\Validators;
 
 use PHPUnit\Framework\TestCase;

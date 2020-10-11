@@ -1,7 +1,8 @@
 <?php
 
-namespace Piwik\Plugins\PasswordPolicyEnforcer\Validators;
+declare(strict_types=1);
 
+namespace Piwik\Plugins\PasswordPolicyEnforcer\Validators;
 
 class LowercaseLetterValidator implements ValidatorInterface
 {

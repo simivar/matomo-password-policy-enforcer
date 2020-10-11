@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Piwik\Plugins\PasswordPolicyEnforcer\tests\Unit\Validators;
 
 use PHPUnit\Framework\TestCase;
@@ -23,12 +25,13 @@ class PasswordValidatorTest extends TestCase
 {
     /** @var PasswordValidator */
     private $passwordValidator;
-    
+
     public function setUp(): void
     {
         $translator = $this->getMockBuilder(TranslatorInterface::class)
             ->setMethods(['translate'])
-            ->getMock();
+            ->getMock()
+        ;
 
         $translator->method('translate')->willReturnArgument(0);
 
@@ -92,5 +95,4 @@ class PasswordValidatorTest extends TestCase
         $this->assertTrue($this->passwordValidator->validate('2%IVR4$Mw%8drTGJD!$IljgvFOr0@YWxRLb0QBt!G6Kf3'));
         $this->assertTrue($this->passwordValidator->validate('somTestPsswrd!0'));
     }
-
 }

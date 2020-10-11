@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Piwik\Plugins\PasswordPolicyEnforcer\tests\Unit\Validators;
 
 use PHPUnit\Framework\TestCase;
-use Piwik\Plugins\PasswordPolicyEnforcer\Validators\LowercaseLetterValidator;
 use Piwik\Plugins\PasswordPolicyEnforcer\Validators\UppercaseLetterValidator;
 use Piwik\Plugins\PasswordPolicyEnforcer\Validators\ValidationException;
 

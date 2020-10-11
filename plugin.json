@@ -1,6 +1,6 @@
 {
   "name": "PasswordPolicyEnforcer",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Adds a possibility to enforce Password Policy.",
   "theme": false,
   "keywords": [

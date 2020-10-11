@@ -2,53 +2,56 @@
 
 namespace Piwik\Plugins\PasswordPolicyEnforcer\Validators;
 
+use Piwik\Plugins\PasswordPolicyEnforcer\Translator\TranslatorInterface;
+
 class PasswordValidator implements ValidatorInterface
 {
-    /** @var int */
-    private $minLength;
-    
-    /** @var bool */
-    private $isOneUppercaseRequired;
-    
-    /** @var bool */
-    private $isOneLowercaseRequired;
-    
-    /** @var bool */
-    private $isOneNumberRequired;
-    
-    /** @var bool */
-    private $isOneSpecialCharacterRequired;
-    
-    public function __construct($minLength = 6, $isOneUppercaseRequired = false, $isOneLowercaseRequired = false, $isOneNumberRequired = false, $isOneSpecialCharacterRequired = false)
+    /** @var ValidatorInterface[] */
+    private $validators;
+
+    /** @var TranslatorInterface */
+    private $translator;
+
+    /**
+     * @param TranslatorInterface $translator
+     */
+    public function __construct(TranslatorInterface $translator)
     {
-        $this->minLength = (int) $minLength;
-        $this->isOneUppercaseRequired = (bool) $isOneUppercaseRequired;
-        $this->isOneLowercaseRequired = (bool) $isOneLowercaseRequired;
-        $this->isOneNumberRequired = (bool) $isOneNumberRequired;
-        $this->isOneSpecialCharacterRequired = (bool) $isOneSpecialCharacterRequired;
+        $this->translator = $translator;
+    }
+
+    /**
+     * @param ValidatorInterface $validator
+     */
+    public function addValidator($validator)
+    {
+        if (!($validator instanceof ValidatorInterface)) {
+            return;
+        }
+
+        $this->validators[get_class($validator)] = $validator;
     }
 
     public function validate($value)
     {
-        (new MinimumLengthValidator($this->minLength))->validate($value);
+        $violations = array();
 
-        if ($this->isOneUppercaseRequired) {
-            (new UppercaseLetterValidator())->validate($value);
+        foreach ($this->validators as $validator) {
+            try {
+                $validator->validate($value);
+            } catch (ValidationException $validationException) {
+                $violations[] = $this->translator->translate(
+                    $validationException->getMessage(),
+                    $validationException->getTranslationParams()
+                );
+            }
         }
 
-        if ($this->isOneLowercaseRequired) {
-            (new LowercaseLetterValidator())->validate($value);
+        if (!empty($violations)) {
+            throw new ValidationException(implode(' ', $violations));
         }
 
-        if ($this->isOneNumberRequired) {
-            (new NumberValidator())->validate($value);
-        }
-
-        if ($this->isOneSpecialCharacterRequired) {
-            (new SpecialCharacterValidator())->validate($value);
-        }
-        
         return true;
     }
-    
+
 }

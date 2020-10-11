@@ -2,10 +2,9 @@
 
 namespace Piwik\Plugins\PasswordPolicyEnforcer;
 
-use Piwik\Piwik;
+use Piwik\Container\StaticContainer;
 use Piwik\Plugin;
-use Piwik\Plugins\PasswordPolicyEnforcer\Validators\PasswordValidator;
-use Piwik\Plugins\PasswordPolicyEnforcer\Validators\ValidationException;
+use Piwik\Plugins\PasswordPolicyEnforcer\Validators\ValidatorFactory;
 
 class PasswordPolicyEnforcer extends Plugin
 {
@@ -15,22 +14,14 @@ class PasswordPolicyEnforcer extends Plugin
         );
     }
 
-    public function verifyPassword($password) {
-        $settings = new SystemSettings();
-        $passwordValidator = new PasswordValidator(
-            $settings->minLength->getValue(),
-            $settings->isOneUppercaseLetterRequired->getValue(),
-            $settings->isOneLowercaseLetterRequired->getValue(),
-            $settings->isOneNumberRequired->getValue(),
-            $settings->isOneNumberRequired->getValue()
-        );
+    public function getFactory()
+    {
+        return StaticContainer::get(ValidatorFactory::class);
+    }
 
-        try {
-            return $passwordValidator->validate($password);
-        } catch (ValidationException $exception) {
-            throw new ValidationException(
-                Piwik::translate($exception->getMessage(), $exception->getTranslationParams())
-            );
-        }
+    public function verifyPassword($password) {
+        $validators = $this->getFactory()->create(new SystemSettings());
+
+        return $validators->validate($password);
     }
 }

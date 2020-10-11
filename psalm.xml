@@ -7,7 +7,10 @@
         xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
 >
     <projectFiles>
-        <directory name="src" />
+        <directory name="Translator" />
+        <directory name="Validators" />
+        <file name="PasswordPolicyEnforcer.php"/>
+        <file name="SystemSettings.php"/>
         <ignoreFiles>
             <directory name="vendor" />
         </ignoreFiles>

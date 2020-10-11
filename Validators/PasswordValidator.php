@@ -7,7 +7,7 @@ use Piwik\Plugins\PasswordPolicyEnforcer\Translator\TranslatorInterface;
 class PasswordValidator implements ValidatorInterface
 {
     /** @var ValidatorInterface[] */
-    private $validators;
+    private $validators = [];
 
     /** @var TranslatorInterface */
     private $translator;

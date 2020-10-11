@@ -6,6 +6,7 @@ use Piwik\Container\StaticContainer;
 use Piwik\Plugin;
 use Piwik\Plugins\PasswordPolicyEnforcer\Validators\ValidatorFactory;
 
+/** @psalm-suppress UndefinedClass **/
 class PasswordPolicyEnforcer extends Plugin
 {
     public function registerEvents() {

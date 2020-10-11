@@ -8,9 +8,7 @@ use Piwik\Settings\FieldConfig;
 use Piwik\Validators\NumberRange;
 use Piwik\Plugins\UsersManager\UsersManager;
 
-/**
- * Defines Settings for UserCountry.
- */
+/** @psalm-suppress UndefinedClass **/
 class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
 {
     /** @var Setting */

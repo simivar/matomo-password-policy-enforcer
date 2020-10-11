@@ -4,6 +4,9 @@ namespace Piwik\Plugins\PasswordPolicyEnforcer\Validators;
 
 class ValidationException extends \Exception
 {
+    /**
+     * @var array
+     */
     private $translationParams;
 
     public function __construct(string $message = "", array $translationParams = array())

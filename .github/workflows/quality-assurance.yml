@@ -39,7 +39,7 @@ jobs:
         run: php vendor/bin/phpunit --coverage-text
 
       - name: Run Infection
-        run: infection --no-progress --show-mutations --only-covered
+        run: infection --no-progress --show-mutations --only-covered --initial-tests-php-options="-d zend_extension=xdebug.so"
 
       - name: Run PHP CS Fixer
         run: php-cs-fixer fix --dry-run --diff --allow-risky=yes --using-cache=no --config=.php_cs.dist --format=checkstyle | cs2pr

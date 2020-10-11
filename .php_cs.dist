@@ -24,6 +24,7 @@ return PhpCsFixer\Config::create()
         'phpdoc_summary' => false,
         'multiline_whitespace_before_semicolons' => ['strategy' => 'new_line_for_chained_calls'],
         'visibility_required' => ['property', 'method', 'const'],
+        'phpdoc_to_comment' => false,
     ])
     ->setCacheFile(__DIR__ . '/.php_cs.cache')
     ->setFinder($finder);

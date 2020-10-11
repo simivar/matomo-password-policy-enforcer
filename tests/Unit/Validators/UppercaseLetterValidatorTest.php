@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Piwik\Plugins\PasswordPolicyEnforcer\tests\Unit\Validators;
 
-use Piwik\Plugins\PasswordPolicyEnforcer\Validators\LowercaseLetterValidator;
+use PHPUnit\Framework\TestCase;
 use Piwik\Plugins\PasswordPolicyEnforcer\Validators\UppercaseLetterValidator;
+use Piwik\Plugins\PasswordPolicyEnforcer\Validators\ValidationException;
 
 /**
  * @group PasswordPolicy
@@ -12,25 +15,24 @@ use Piwik\Plugins\PasswordPolicyEnforcer\Validators\UppercaseLetterValidator;
  * @group Password
  * @group Plugins
  */
-class UppercaseLetterValidatorTest extends \PHPUnit_Framework_TestCase
+class UppercaseLetterValidatorTest extends TestCase
 {
     private $uppercaseLetterValidator;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->uppercaseLetterValidator = new UppercaseLetterValidator();
     }
 
-    /**
-     * @expectedException \Piwik\Plugins\PasswordPolicyEnforcer\Validators\ValidationException
-     * @expectedExceptionMessage PasswordPolicyEnforcer_ExceptionInvalidPasswordUppercaseLetterRequired
-     */
-    public function test_validate_throwExceptionWhenZeroUppercaseLetters()
+    public function test_validate_throwExceptionWhenZeroUppercaseLetters(): void
     {
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage('PasswordPolicyEnforcer_ExceptionInvalidPasswordUppercaseLetterRequired');
+
         $this->uppercaseLetterValidator->validate('a');
     }
 
-    public function test_validate_returnsTrueWhenAtLeastOneUppercaseLetter()
+    public function test_validate_returnsTrueWhenAtLeastOneUppercaseLetter(): void
     {
         $this->assertTrue($this->uppercaseLetterValidator->validate('A'));
     }

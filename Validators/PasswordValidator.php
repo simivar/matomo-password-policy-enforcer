@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Piwik\Plugins\PasswordPolicyEnforcer\Validators;
 
 use Piwik\Plugins\PasswordPolicyEnforcer\Translator\TranslatorInterface;
@@ -7,34 +9,24 @@ use Piwik\Plugins\PasswordPolicyEnforcer\Translator\TranslatorInterface;
 class PasswordValidator implements ValidatorInterface
 {
     /** @var ValidatorInterface[] */
-    private $validators;
+    private $validators = [];
 
     /** @var TranslatorInterface */
     private $translator;
 
-    /**
-     * @param TranslatorInterface $translator
-     */
     public function __construct(TranslatorInterface $translator)
     {
         $this->translator = $translator;
     }
 
-    /**
-     * @param ValidatorInterface $validator
-     */
-    public function addValidator($validator)
+    public function addValidator(ValidatorInterface $validator): void
     {
-        if (!($validator instanceof ValidatorInterface)) {
-            return;
-        }
-
         $this->validators[get_class($validator)] = $validator;
     }
 
-    public function validate($value)
+    public function validate(string $value): bool
     {
-        $violations = array();
+        $violations = [];
 
         foreach ($this->validators as $validator) {
             try {
@@ -53,5 +45,4 @@ class PasswordValidator implements ValidatorInterface
 
         return true;
     }
-
 }

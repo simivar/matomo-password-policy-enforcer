@@ -1,8 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Piwik\Plugins\PasswordPolicyEnforcer\tests\Unit\Validators;
 
+use PHPUnit\Framework\TestCase;
 use Piwik\Plugins\PasswordPolicyEnforcer\Validators\LowercaseLetterValidator;
+use Piwik\Plugins\PasswordPolicyEnforcer\Validators\ValidationException;
 
 /**
  * @group PasswordPolicy
@@ -11,25 +15,24 @@ use Piwik\Plugins\PasswordPolicyEnforcer\Validators\LowercaseLetterValidator;
  * @group Password
  * @group Plugins
  */
-class LowercaseLetterValidatorTest extends \PHPUnit_Framework_TestCase
+class LowercaseLetterValidatorTest extends TestCase
 {
     private $lowercaseLetterValidator;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->lowercaseLetterValidator = new LowercaseLetterValidator();
     }
 
-    /**
-     * @expectedException \Piwik\Plugins\PasswordPolicyEnforcer\Validators\ValidationException
-     * @expectedExceptionMessage PasswordPolicyEnforcer_ExceptionInvalidPasswordLowercaseLetterRequired
-     */
-    public function test_validate_throwExceptionWhenZeroLowercaseLetters()
+    public function test_validate_throwExceptionWhenZeroLowercaseLetters(): void
     {
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage('PasswordPolicyEnforcer_ExceptionInvalidPasswordLowercaseLetterRequired');
+
         $this->lowercaseLetterValidator->validate('SOMETESTPASSWORD');
     }
 
-    public function test_validate_returnsTrueWhenAtLeastOneLowercaseLetter()
+    public function test_validate_returnsTrueWhenAtLeastOneLowercaseLetter(): void
     {
         $this->assertTrue($this->lowercaseLetterValidator->validate('a'));
     }

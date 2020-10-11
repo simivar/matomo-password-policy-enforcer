@@ -1,12 +1,12 @@
 <?php
 
-namespace Piwik\Plugins\PasswordPolicyEnforcer\Validators;
+declare(strict_types=1);
 
-use Piwik\Piwik;
+namespace Piwik\Plugins\PasswordPolicyEnforcer\Validators;
 
 class UppercaseLetterValidator implements ValidatorInterface
 {
-    public function validate($value)
+    public function validate(string $value): bool
     {
         if (!preg_match('/[A-Z]/', $value)) {
             throw new ValidationException('PasswordPolicyEnforcer_ExceptionInvalidPasswordUppercaseLetterRequired');

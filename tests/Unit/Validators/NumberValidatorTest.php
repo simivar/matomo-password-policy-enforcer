@@ -1,8 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Piwik\Plugins\PasswordPolicyEnforcer\tests\Unit\Validators;
 
+use PHPUnit\Framework\TestCase;
 use Piwik\Plugins\PasswordPolicyEnforcer\Validators\NumberValidator;
+use Piwik\Plugins\PasswordPolicyEnforcer\Validators\ValidationException;
 
 /**
  * @group PasswordPolicy
@@ -11,25 +15,24 @@ use Piwik\Plugins\PasswordPolicyEnforcer\Validators\NumberValidator;
  * @group Password
  * @group Plugins
  */
-class NumberValidatorTest extends \PHPUnit_Framework_TestCase
+class NumberValidatorTest extends TestCase
 {
     private $numberValidator;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->numberValidator = new NumberValidator();
     }
 
-    /**
-     * @expectedException \Piwik\Plugins\PasswordPolicyEnforcer\Validators\ValidationException
-     * @expectedExceptionMessage PasswordPolicyEnforcer_ExceptionInvalidPasswordNumberRequired
-     */
-    public function test_validate_throwExceptionWhenZeroNumbers()
+    public function test_validate_throwExceptionWhenZeroNumbers(): void
     {
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage('PasswordPolicyEnforcer_ExceptionInvalidPasswordNumberRequired');
+
         $this->numberValidator->validate('a');
     }
 
-    public function test_validate_returnsTrueWhenAtLeastOneNumber()
+    public function test_validate_returnsTrueWhenAtLeastOneNumber(): void
     {
         $this->assertTrue($this->numberValidator->validate('1'));
     }

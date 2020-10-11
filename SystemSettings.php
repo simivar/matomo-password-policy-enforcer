@@ -31,7 +31,7 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
     protected function init()
     {
         $this->title = Piwik::translate('PasswordPolicyEnforcer_PasswordPolicyConfiguration');
-        
+
         $this->minLength = $this->createMinLengthSetting();
         $this->isOneUppercaseLetterRequired = $this->createRequireOneUppercaseLetterSetting();
         $this->isOneLowercaseLetterRequired = $this->createRequireOneLowercaseLetterSetting();

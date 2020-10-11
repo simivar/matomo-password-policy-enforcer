@@ -15,7 +15,7 @@ final class Translator implements TranslatorInterface
         $this->translator = $translator;
     }
 
-    public function translate($key, $params)
+    public function translate(string $key, array $params): string
     {
         return $this->translator->translate($key, $params);
     }
